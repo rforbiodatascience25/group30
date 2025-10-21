@@ -21,7 +21,7 @@ authors:
 
 # Aim
 
-ghjk
+The aim for this exercise is to practise our GitHub collaboration. We have done so by using the Gravier dataset and performing a little PC-analysis. The analysis i heavily inspired by Claus O. Wilke's report on a similar data-set.
 
 # Load libraries
 
@@ -92,6 +92,8 @@ arrow_style <- arrow(
 )
 ```
 
+Only a small subset from the pca_fit tibble is used to construct a readable plot.
+
 ```{r}
 pca_fit %>%
     tidy(matrix = "rotation") |>
@@ -137,4 +139,4 @@ pca_fit |>
 
 # Conclusion
 
-ghjk
+We can now collaborate.
