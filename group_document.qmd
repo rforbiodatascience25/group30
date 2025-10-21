@@ -6,12 +6,23 @@ editor: visual
 
 # Karolina - s244854
 
+## Initial testing
+
 Vi skal tjekke hvordan man samarbejder :P
 
 ```{r}
 x <- c("kun",2,"gruppemedlemmer","):")
 x
 ```
+
+## New analysis
+
+Vi skal tjekke hvordan man samarbejder part 2:P
+
+```{r} x <- c("stadig", "kun",2,"gruppemedlemmer","):") x}
+```
+
+## 
 
 # Isabella - s235342
 
