@@ -25,11 +25,17 @@ ghjk
 
 # Load libraries
 
-jkl
+```{r}
+library("tidyverse")
+library(broom) 
+library(cowplot)
+```
 
 # Load data
 
-ghjk
+```{r}
+load("data/gravier.RData")
+```
 
 # Data wrangling
 
