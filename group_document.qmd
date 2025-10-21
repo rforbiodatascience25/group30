@@ -6,6 +6,13 @@ editor: visual
 
 # Karolina - s244854
 
+Vi skal tjekke hvordan man samarbejder :P
+
+```{r}
+x <- c("kun",2,"gruppemedlemmer","):")
+x
+```
+
 # Isabella - s235342
 
 # 
