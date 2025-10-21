@@ -21,7 +21,7 @@ authors:
 
 # Aim
 
-The aim for this exercise is to practise our GitHub collaboration. We have done so by using the Gravier dataset and performing a little PC-analysis. The analysis i heavily inspired by Claus O. Wilke's report on a similar data-set.
+The aim for this exercise is to practice our GitHub collaboration. We have done so by using the Gravier dataset and performing a little PC analysis (PCA). The PC analysis is heavily inspired by Claus O. Wilke's report (<https://clauswilke.com/blog/2020/09/07/pca-tidyverse-style/>).
 
 # Load libraries
 
@@ -47,7 +47,9 @@ load("data/gravier.RData")
 
 # Data wrangling
 
-The loaded data consists of 2 large lists so these are firstly combined into columns and transformed into a tibble. The bind_cols() function is used here and binds the columns in order. Usually, it would be preferred to use join() but in this case bind_cols() works. It is then converted to a tibble and the 'y'-column is renamed to 'early_metastasis.'
+The loaded data consists of 2 large lists, so these are firstly combined into columns and transformed into a tibble. The bind_cols() function is used here and binds the columns in order. Usually, it would be preferred to use join() but in this case bind_cols() works.
+
+The 'y'-column is renamed to 'early_metastasis.'
 
 ```{r}
 gravier_clean <- gravier |>
@@ -65,63 +67,69 @@ A PCA is done and the fit is saved.
 
 ```{r}
 pca_fit <- gravier_clean |> 
-  select(where(is.numeric)) |> # Looks only at numeric columns
-  scale() |> # Scale data
-  prcomp() # Performs PCA
+  select(where(is.numeric)) |> 
+  scale() |> 
+  prcomp()
 ```
 
 ## Visualization 1: PC coordinates
 
+This plot shows the PC1 against PC2 for each observation. There does not appear to be any clear separation between the two groups.
+
 ```{r}
 pca_fit |>
-  augment(gravier_clean) |> # add original dataset back in
-  ggplot(aes(.fittedPC1, .fittedPC2, color = early_metastasis)) + 
+  augment(gravier_clean) |>
+  ggplot(aes(x = .fittedPC1, 
+             y = .fittedPC2, 
+             color = early_metastasis)
+         ) + 
   geom_point(size = 1.5) +
-  scale_color_manual(
-    values = c(poor = "#D55E00", good = "#0072B2")
-  ) +
-  theme_half_open(12) + background_grid()
+  scale_color_manual(values = c(poor = "#D55E00", 
+                                good = "#0072B2")
+                     ) +
+  theme_half_open(12) + 
+  background_grid()
 ```
 
-## Visualization 2:
+## Visualization 2: The rotation matrix
+
+First some styling of the arrows.
 
 ```{r}
-pca_fit |>
-  tidy(matrix = "rotation")
+arrow_style <- arrow(angle = 20, 
+                     ends = "first", 
+                     type = "closed", 
+                     length = grid::unit(8, "pt"))
 ```
 
-```{r}
-arrow_style <- arrow(
-  angle = 20, ends = "first", type = "closed", length = grid::unit(8, "pt")
-)
-```
-
-Only a small subset from the pca_fit tibble is used to construct a readable plot.
+Only a small subset from the pca_fit tibble is used to construct a readable plot. In the below plot the first 7 genes are shown.
 
 ```{r}
-pca_fit %>%
-    tidy(matrix = "rotation") |>
-  pivot_wider(names_from = "PC", names_prefix = "PC", values_from = "value") |>
-  head(7) |>
-  ggplot(aes(PC1, PC2)) +
-  geom_segment(xend = 0, yend = 0, arrow = arrow_style) +
-  geom_text(
-    aes(label = column),
-    hjust = 1, nudge_x = 0.02, 
-    size = 3,
-    color = "#904C2F"
-  ) +
-  xlim(-0.05, .075) + ylim(-.025, 0.035) +
-  coord_fixed() + # fix aspect ratio to 1:1
+select_size <- 7
+
+pca_fit |> 
+  tidy(matrix = "rotation") |>
+  pivot_wider(names_from = "PC", 
+              names_prefix = "PC", 
+              values_from = "value") |>
+  head(select_size) |>
+  ggplot(aes(x = PC1, 
+             y = PC2,
+             label = column)) +
+  geom_segment(xend = 0, 
+               yend = 0, 
+               arrow = arrow_style) +
+  geom_text(nudge_x = 0.02, 
+            size = 3,
+            color = "#904C2F") +
+  xlim(-0.05, .075) + 
+  ylim(-.025, 0.035) +
   theme_minimal_grid(12)
 ```
 
-## Figure 3
+## Visualization 3: Variance explained by each PC
 
-```{r}
-pca_fit |> 
-  tidy(matrix = "eigenvalues")
-```
+Below plot shows the variance explained by PC1 to PC10. In general these are very low meaning that each PC explains little of the differences seen between each observation.
 
 ```{r}
 pca_fit |> 
@@ -131,16 +139,12 @@ pca_fit |>
              percent)
          ) +
   geom_col(fill = "#56B4E9", 
-           alpha = 0.8
-           ) +
-  scale_x_continuous(breaks = 1:9) +
-  scale_y_continuous(
-    labels = scales::percent_format(),
-    expand = expansion(mult = c(0, 0.01))
-  ) +
+           alpha = 0.8) +
+  scale_x_continuous(breaks = 1:10) +
+  scale_y_continuous(labels = scales::percent_format()) +
   theme_minimal_hgrid(12)
 ```
 
 # Conclusion
 
-We can now collaborate.
+There is not much to conclude from the PCA (at least not based on how we understand it to work). However, the aim was completed nicely as we succeeded in combining our efforts into this report by using Git, though the work flow can still be improved upon.
