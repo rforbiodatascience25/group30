@@ -4,37 +4,28 @@ format: html
 editor: visual
 ---
 
-# Karolina - s244854
+# Loading data
 
-## Initial testing
+ghjk
 
-Vi skal tjekke hvordan man samarbejder :P
+# Data wrangling
 
-```{r}
-x <- c("kun",2,"gruppemedlemmer","):")
-x
-```
+gbghnj
 
-## New analysis
+# Data Analysis
 
-Vi skal tjekke hvordan man samarbejder part 2:P
+## Figure 1
 
-`{r} x <- c("stadig", "kun",2,"gruppemedlemmer","):") x}`
+hj
 
-## 
+## Figure 2
 
-# Isabella - s235342
+dfghj
 
-Here is some text.
+## Figure 3
 
-```{r}
-# Wow a code chunk appeareD!
-x <- c(3, 4, 5, 6)
-x*2
-```
+fghjk
 
-## New cool feature
+# Conclusion
 
-```{r}
-print("This is very necessary.")
-```
+ghjk
