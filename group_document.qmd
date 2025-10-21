@@ -19,8 +19,7 @@ x
 
 Vi skal tjekke hvordan man samarbejder part 2:P
 
-```{r} x <- c("stadig", "kun",2,"gruppemedlemmer","):") x}
-```
+`{r} x <- c("stadig", "kun",2,"gruppemedlemmer","):") x}`
 
 ## 
 
