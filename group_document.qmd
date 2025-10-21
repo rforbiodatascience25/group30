@@ -33,19 +33,45 @@ library(cowplot)
 
 # Load data
 
+The Gravier data has been added to a data folder in the GitHub repository.
+
 ```{r}
 load("data/gravier.RData")
 ```
 
 # Data wrangling
 
-gbghnj
+```{r}
+gravier_clean <- gravier |>
+  bind_cols() |>
+  as_tibble() |>
+  relocate(early_metastasis = y) 
+
+gravier_clean |> 
+  slice_sample(n = 10)
+```
 
 # Data Analysis
 
+```{r}
+pca_fit <- gravier_clean %>% 
+  select(where(is.numeric)) %>% # retain only numeric columns
+  scale() %>% # scale data
+  prcomp() # do PCA
+```
+
 ## Figure 1
 
-hj
+```{r}
+pca_fit %>%
+  augment(gravier_clean) %>% # add original dataset back in
+  ggplot(aes(.fittedPC1, .fittedPC2, color = early_metastasis)) + 
+  geom_point(size = 1.5) +
+  scale_color_manual(
+    values = c(poor = "#D55E00", good = "#0072B2")
+  ) +
+  theme_half_open(12) + background_grid()
+```
 
 ## Figure 2
 
