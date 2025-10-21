@@ -19,37 +19,36 @@ authors:
 - Andreas Bach (s205869)
 ---
 
-# Karolina - s244854
+# Aim
 
-## Initial testing
+ghjk
 
-Vi skal tjekke hvordan man samarbejder :P
+# Load libraries
 
-```{r}
-x <- c("kun",2,"gruppemedlemmer","):")
-x
-```
+jkl
 
-## New analysis
+# Load data
 
-Vi skal tjekke hvordan man samarbejder part 2:P
+ghjk
 
-`{r} x <- c("stadig", "kun",2,"gruppemedlemmer","):") x}`
+# Data wrangling
 
-## 
+gbghnj
 
-# Isabella - s235342
+# Data Analysis
 
-Here is some text.
+## Figure 1
 
-```{r}
-# Wow a code chunk appeareD!
-x <- c(3, 4, 5, 6)
-x*2
-```
+hj
 
-## New cool feature
+## Figure 2
 
-```{r}
-print("This is very necessary.")
-```
+dfghj
+
+## Figure 3
+
+fghjk
+
+# Conclusion
+
+ghjk
