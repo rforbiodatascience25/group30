@@ -35,7 +35,11 @@ library(cowplot)
 
 # Load data
 
-The Gravier data has been added to a data folder in the GitHub repository.
+The Gravier data has been added to a data folder in the GitHub repository. The gravier data contains information of gene expression of 2905 genes from 168 patients, whether the patients eventually showed sign of metastasis is denoted in the 'y'-column where:
+
+-   "poor": means early sign of metastasis
+
+-   "good": means no sign of metastasis
 
 ```{r}
 load("data/gravier.RData")
@@ -43,7 +47,7 @@ load("data/gravier.RData")
 
 # Data wrangling
 
-The loaded data consists of 2 large lists so these are firstly combined into columns and transformed into a tibble. The bind_cols() function is used here and binds the columns in order. Usually, it would be preferred to use join() but in this case bind_cols() works. It is then converted to a tibble and the
+The loaded data consists of 2 large lists so these are firstly combined into columns and transformed into a tibble. The bind_cols() function is used here and binds the columns in order. Usually, it would be preferred to use join() but in this case bind_cols() works. It is then converted to a tibble and the 'y'-column is renamed to 'early_metastasis.'
 
 ```{r}
 gravier_clean <- gravier |>
@@ -57,16 +61,16 @@ gravier_clean |>
 
 # Data Analysis
 
-```{r}
-pca_fit <- gravier_clean %>% 
-  select(where(is.numeric)) %>% # retain only numeric columns
-  scale() %>% # scale data
-  prcomp() # do PCA
+A PCA is done and the fit is saved.
 
-subset_size <- 10
+```{r}
+pca_fit <- gravier_clean |> 
+  select(where(is.numeric)) |> # Looks only at numeric columns
+  scale() |> # Scale data
+  prcomp() # Performs PCA
 ```
 
-## Figure 1
+## Visualization 1: PC coordinates
 
 ```{r}
 pca_fit %>%
@@ -79,7 +83,7 @@ pca_fit %>%
   theme_half_open(12) + background_grid()
 ```
 
-## Figure 2
+## Visualization 2: 
 
 ```{r}
 pca_fit_subset %>%
@@ -118,7 +122,7 @@ pca_fit |>
 ```{r}
 pca_fit |> 
   tidy(matrix = "eigenvalues") |> 
-  head(subset_size) |> 
+  head(10) |> 
   ggplot(aes(PC, 
              percent)
          ) +
