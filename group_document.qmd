@@ -56,9 +56,9 @@ gravier_clean |>
 # Data Analysis
 
 ```{r}
-pca_fit <- gravier_clean %>% 
-  select(where(is.numeric)) %>% # retain only numeric columns
-  scale() %>% # scale data
+pca_fit <- gravier_clean |>
+  select(where(is.numeric)) |> # retain only numeric columns
+  scale() |> # scale data
   prcomp() # do PCA
 
 pca_fit_subset <- pca_fit |> 
@@ -71,8 +71,8 @@ pca_fit_subset
 ## Figure 1
 
 ```{r}
-pca_fit %>%
-  augment(gravier_clean) %>% # add original dataset back in
+pca_fit |>
+  augment(gravier_clean) |> # add original dataset back in
   ggplot(aes(.fittedPC1, .fittedPC2, color = early_metastasis)) + 
   geom_point(size = 1.5) +
   scale_color_manual(
@@ -84,7 +84,7 @@ pca_fit %>%
 ## Figure 2
 
 ```{r}
-pca_fit_subset %>%
+pca_fit |>
   tidy(matrix = "rotation")
 ```
 
@@ -95,17 +95,19 @@ arrow_style <- arrow(
 ```
 
 ```{r}
-pca_fit_subset %>%
-  tidy(matrix = "rotation") %>%
-  pivot_wider(names_from = "PC", names_prefix = "PC", values_from = "value") %>%
+pca_fit %>%
+    tidy(matrix = "rotation") |>
+  pivot_wider(names_from = "PC", names_prefix = "PC", values_from = "value") |>
+  head(7) |>
   ggplot(aes(PC1, PC2)) +
   geom_segment(xend = 0, yend = 0, arrow = arrow_style) +
   geom_text(
     aes(label = column),
-    hjust = 1, nudge_x = -0.02, 
+    hjust = 1, nudge_x = 0.02, 
+    size = 3,
     color = "#904C2F"
   ) +
-  xlim(-1.25, .5) + ylim(-.5, 1) +
+  xlim(-0.05, .075) + ylim(-.025, 0.035) +
   coord_fixed() + # fix aspect ratio to 1:1
   theme_minimal_grid(12)
 ```
