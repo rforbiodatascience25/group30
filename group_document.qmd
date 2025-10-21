@@ -26,6 +26,8 @@ ghjk
 # Load libraries
 
 ```{r}
+#| message: false
+
 library("tidyverse")
 library(broom) 
 library(cowplot)
@@ -58,6 +60,12 @@ pca_fit <- gravier_clean %>%
   select(where(is.numeric)) %>% # retain only numeric columns
   scale() %>% # scale data
   prcomp() # do PCA
+
+pca_fit_subset <- pca_fit |> 
+  tidy() |> 
+  head(10)
+
+pca_fit_subset
 ```
 
 ## Figure 1
@@ -79,7 +87,24 @@ dfghj
 
 ## Figure 3
 
-fghjk
+```{r}
+pca_fit |> 
+  tidy(matrix = "eigenvalues")
+```
+
+```{r}
+pca_fit |> 
+  tidy(matrix = "eigenvalues") |> 
+  
+  ggplot(aes(PC, percent)) +
+  geom_col(fill = "#56B4E9", alpha = 0.8) +
+  scale_x_continuous(breaks = 1:9) +
+  scale_y_continuous(
+    labels = scales::percent_format(),
+    expand = expansion(mult = c(0, 0.01))
+  ) +
+  theme_minimal_hgrid(12)
+```
 
 # Conclusion
 
