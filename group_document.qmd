@@ -23,8 +23,8 @@ x <- c(3, 4, 5, 6)
 x*2
 ```
 
-Now some more text and another chunk.
+## New cool feature
 
 ```{r}
-4 + 5 * 3 / 2
+print("This is very necessary.")
 ```
