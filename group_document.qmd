@@ -1,7 +1,22 @@
 ---
 title: "Group Document"
-format: html
+format:
+  html:
+    embed-resources: true
+    toc: true
+    toc-depth: 2
 editor: visual
+execute:
+  echo: true
+  cache: true
+  freeze: auto
+date: 2025-10-07
+authors: 
+- Isabella T. Christoffersen (s235342)
+- Karolina Nordkamp (s244854)
+- Malaika Khiljee (s245618)
+- Kasia Muncha (s222846)
+- Andreas Bach (s205869)
 ---
 
 # Karolina - s244854
